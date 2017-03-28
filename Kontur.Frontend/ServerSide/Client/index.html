@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Kontur.Frontend.Autocomplete</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="css/style.css" rel="stylesheet">
+		<script src="js/vue.min.js" defer></script>
+		<script src="js/ajax.js" defer></script>
+		<script src="js/autocomplete.js" defer></script>
+		<script src="js/main.js" defer></script>
+	</head>
+	<body>
+		<main>
+			<form class="centered">
+				<autocomplete
+					class="centered"
+					name="city"
+					:url="$options.url"
+					:debounce="$options.debounce"
+				></autocomplete>
+			</form>
+		</main>
+	</body>
+
+	<script type="text/x-template" id="autocomplete">
+		<section class="autocomplete">
+			<input ref="input"
+				class="fonted"
+				:class="{ error: hasInputError && !isSelected }"
+				type="text"
+				:name="name"
+				placeholder="Начните вводить название города"
+				v-model="query"
+				@keydown="inputKeydown"
+				@blur="inputBlur"
+				@focus="inputFocus">
+			<label :for="name">Выберите значение из списка</label>
+			<div class="list" :class="{ hidden: isHidden }">
+				<ul>
+					<li v-for="n in listLimit"
+						class="fonted option"
+						:class="{ selected: selectedIndex == (n - 1) }"
+						:data-index="n - 1"
+						@click="selectOption"
+						@mouseover="optionHover"
+					>
+						{{ options[n - 1].city }}
+					</li>
+					<li class="fonted reminder" v-if="listLimit > 0 && listLimit != options.length && !isLoading && !hasServerError">
+						Показано {{listLimit}} из {{options.length}} найденных городов. Уточните запрос, чтобы увидеть остальные.
+					</li>
+					<li class="fonted reminder" v-if="options.length == 0 && query.length > 0 && !isLoading && !hasServerError">
+						Не найдено.
+					</li>
+					<li class="fonted reminder" v-if="isLoading && !hasServerError && query.length > 0">
+						<i class="spinner">Загрузка...</i>
+					</li>
+					<li class="fonted reminder" v-if="hasServerError">
+						Что-то пошло не так. Проверьте соединение с интернетом и попробуйте ещё раз.
+					</li>
+				</ul>
+			</div>
+			<slot></slot>
+		</section>
+	</script>
+</html>

@@ -1,0 +1,175 @@
+body {
+	margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: table;
+}
+
+main {
+	display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.autocomplete {
+	width: 300px;
+}
+
+.autocomplete > input {
+	border: 1px solid #d9d9d9;
+	border-top-color: #b2b2b2;	
+	outline: 0;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+	width: 100%;
+	padding: 5px 8px;
+	-webkit-transition: ease, 100ms, 100ms, outline;
+	-moz-transition: ease, 100ms, 100ms, outline;
+	transition: ease, 100ms, 100ms, outline;
+}
+
+.autocomplete > input + label {
+	position: absolute;
+	display: none;
+}
+
+.autocomplete > input:focus {
+	border-color: #5199db;
+	-webkit-box-shadow: 0 0 0 1px #5199db;
+	   -moz-box-shadow: 0 0 0 1px #5199db;
+	        box-shadow: 0 0 0 1px #5199db;
+}
+
+.autocomplete > input:-ms-input-placeholder,
+.autocomplete > input:-moz-placeholder,
+.autocomplete > input::-moz-placeholder,
+.autocomplete > input::-webkit-input-placeholder,
+{
+	box-shadow: inset 0 1px 2px -1px black;
+}
+
+.autocomplete > input:focus::-webkit-input-placeholder,
+.autocomplete > input:focus::-moz-placeholder,
+.autocomplete > input:focus:-ms-input-placeholder,
+.autocomplete > input:focus:-moz-placeholder {
+	color: silver;
+}
+
+.autocomplete > input.error {
+	border-color: red;
+	-webkit-box-shadow: 0 0 0 1px red;
+	   -moz-box-shadow: 0 0 0 1px red;
+	        box-shadow: 0 0 0 1px red;
+}
+
+.autocomplete > input.error + label {
+	display: block;
+	color: red;
+	font-family: 'Segoe UI';
+	font-style: bold;
+	font-size: 14px;
+	padding: 6px 2px;
+}
+
+.autocomplete > .list {
+	position: absolute;
+	margin-top: 2px;
+	width: auto;
+	max-height: 0;
+	overflow: hidden;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.25);
+	   -moz-box-shadow: 0 0 10px rgba(0,0,0,0.25);
+	        box-shadow: 0 0 10px rgba(0,0,0,0.25);
+	-webkit-transition: ease, 150ms, 150ms, height;
+	-moz-transition: ease, 150ms, 150ms, height;
+	transition: ease, 150ms, 150ms, height;
+}
+
+.autocomplete > .list.hidden {
+	max-height: 0 !important;
+}
+
+.autocomplete > input:focus ~ .list {
+	max-height: 200px;
+	/*max-height: 450px;*/
+}
+
+.autocomplete > .list ul {
+	display: inline;
+	padding: 0;
+}
+
+.autocomplete > .list ul > li {
+	list-style: none;
+	word-wrap: normal;
+	padding: 5px 50px 5px 8px;
+}
+
+.autocomplete > .list ul > li.option {	
+	cursor: pointer;
+}
+
+.autocomplete > .list ul > li.option.selected {
+	background-color: #5199db;
+	color: white;
+}
+
+.autocomplete > .list ul > li.reminder {
+	width: auto;
+	color: rgba(0,0,0,0.5);
+	font-size: 12px;
+	padding: 15px 8px;
+	display: block;
+}
+
+.centered {
+	display: inline-block;
+    text-align: left;
+}
+
+.fonted {
+	font-size: 14px;
+	font-family: 'Segoe UI';
+	color: #404040;
+	line-height: 20px
+}
+
+
+/* Spinner */
+@-webkit-keyframes spinner {
+  to {-webkit-transform: rotate(360deg);transform: rotate(360deg);}
+}
+@-moz-keyframes spinner {
+  to {-moz-transform: rotate(360deg);transform: rotate(360deg);}
+}
+@keyframes spinner {
+  to {-webkit-transform: rotate(360deg);-moz-transform: rotate(360deg);transform: rotate(360deg);}
+}
+
+.spinner {
+	padding-left: 30px;
+	font-style: normal;
+}
+ 
+.spinner:before {
+	display: inline-block;
+	content: '';
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	margin-left: -26px;
+	margin-top: 2px;
+	-webkit-border-radius: 50%;
+	   -moz-border-radius: 50%;
+	        border-radius: 50%;
+	border: 2px solid #ccc;
+	border-top-color: #333;
+	-webkit-animation: spinner .6s linear infinite;
+	   -moz-animation: spinner .6s linear infinite;
+	        animation: spinner .6s linear infinite;
+}
